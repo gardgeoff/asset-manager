@@ -1,0 +1,27 @@
+.theme-bg-primary {
+  background: #AB0520 !important;
+  color: white !important;
+}
+.theme-bg-secondary {
+  background: #0C234B !important;
+  color: white !important;
+}
+.theme-color-primary{
+  color : #AB0520;
+}
+.theme-color-secondary{
+  color: #0C234B;
+}
+
+.card{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.178) 
+}
+
+/* pagination */
+.page-link{
+  color: #0C234B !important;
+}
+.active>.page-link{
+  color:white !important;
+  background: #0C234B !important
+}
