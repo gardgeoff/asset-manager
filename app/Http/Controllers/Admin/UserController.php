@@ -40,14 +40,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $formFields = $request->validate([
-        //     "name" => "required",
-        //     "email" => ["required", "email"],
-        //     "password" => ["required", "min:6"],
-        //     "roles" => ["required"]
-        // ]);
+        $formFields = $request->validate([
+            "name" => ["required", "max:255"],
+            "email" => ["required", "email", "unique:users"],
+            "password" => ["required", "min:8", "max:255"],
+
+        ]);
+
         $user = User::create($request->except(["_token", "roles"]));
         $user->roles()->sync($request->roles);
+        $request->session()->flash("success", "User Created");
         return redirect((route("admin.users.index")));
     }
 
@@ -70,7 +72,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        return view("admin.users.edit", [
+            "roles" => Role::all(),
+            "user" => User::find($id)
+        ],);
     }
 
     /**
@@ -82,7 +88,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        if (!$user) {
+            $request->session()->flash("error", "User Does Not Exist");
+            return redirect(route("admin.users.index"));
+        }
+        $user->update($request->except(["_token", "roles"]));
+        $user->roles()->sync($request->roles);
+        $request->session()->flash("success", "User Edited");
+        return redirect(route("admin.users.index"));
     }
 
     /**
@@ -91,10 +105,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
 
         User::destroy($id);
+        $request->session()->flash("success", "User Deleted");
         return redirect(route("admin.users.index"));
     }
 }
