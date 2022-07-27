@@ -21,8 +21,12 @@ Route::get('/', function () {
 // show login
 Route::get("/login", [UserController::class, "login"]);
 
+// logout
+Route::post("/logout", [UserController::class, "logout"]);
+
 // authorize login
 Route::post("/users/authenticate", [UserController::class, "authenticate"]);
+
 
 // show register
 Route::get("/register", [UserController::class, "create"]);

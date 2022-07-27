@@ -6,7 +6,7 @@
             </div>
             <p class="my-4 text-dark h3">Create New User</p>
             <form method="POST" action="{{ route('admin.users.store') }}">
-                @include('admin.users.partials.form', ['create' => true]);
+                @include('admin.users.partials.form', ['create' => true])
             </form>
         </div>
     </div>

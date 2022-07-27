@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -29,15 +30,18 @@ class UserController extends Controller
     {
         return view("users.register");
     }
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $formFields = $request->validate([
-            "name" => "required",
-            "email" => ["required", "email",],
-            "password" => ["required", "confirmed", "min:6"]
-        ]);
-        $formFields["password"] = bcrypt($formFields["password"]);
+        $formFields = $request->validated();
+
         User::create($formFields);
         return redirect("/login")->with("success", "Created User");
+    }
+    public function logout(Request $request)
+    {
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect("/login")->with("success", "Logged out Succesfully");
     }
 }

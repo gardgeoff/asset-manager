@@ -25,3 +25,10 @@
   color:white !important;
   background: #0C234B !important
 }
+.bottom-nav-link{
+  font-weight: 600 !important;
+  margin-right: 25px;
+}
+.ml-auto{
+  margin-left:auto !important
+}

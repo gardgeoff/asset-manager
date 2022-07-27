@@ -1,5 +1,5 @@
 <x-layout>
-    <div class=" d-flex justify-content-center align-items-center w-100 vh-100">
+    <div class="py-5 d-flex justify-content-center align-items-center w-100 ">
         <div class=" p-5 card w-25">
             <form method="POST" action="/users">
                 @csrf

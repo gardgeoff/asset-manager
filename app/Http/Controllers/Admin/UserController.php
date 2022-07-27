@@ -6,6 +6,8 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
@@ -16,6 +18,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        if (Gate::denies("logged-in")) {
+            dd("no access");
+        }
         $users = User::paginate(10);
         return view("admin.users.index", [
             "users" => $users
@@ -38,21 +43,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $formFields = $request->validate([
-            "name" => ["required", "max:255"],
-            "email" => ["required", "email", "unique:users"],
-            "password" => ["required", "min:8", "max:255"],
-
-        ]);
-
-        $user = User::create($request->except(["_token", "roles"]));
+        $formFields = $request->validated();
+        $user = User::create($formFields);
         $user->roles()->sync($request->roles);
         $request->session()->flash("success", "User Created");
         return redirect((route("admin.users.index")));
     }
-
     /**
      * Display the specified resource.
      *
