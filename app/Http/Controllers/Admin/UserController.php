@@ -21,11 +21,15 @@ class UserController extends Controller
         if (Gate::denies("logged-in")) {
             dd("no access");
         }
-        $users = User::paginate(10);
-        return view("admin.users.index", [
-            "users" => $users
-        ]);
+        if (Gate::allows("is-admin")) {
+            $users = User::paginate(10);
+            return view("admin.users.index", [
+                "users" => $users
+            ]);
+        }
+        return redirect("/");
     }
+
 
     /**
      * Show the form for creating a new resource.

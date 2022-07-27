@@ -42,7 +42,7 @@
             @endcan
             @cannot('logged-in')
                 <div class="ml-auto">
-                    <a href="" class="nav-link"></a>
+                    <a href={{ url('/login') }} class="nav-link text-light">Log In</a>
 
                 </div>
             @endcannot
@@ -50,9 +50,10 @@
         @can('logged-in')
             <nav class="px-5 shadow-sm  navbar navbar-expand-sm bg-light navbar-light">
 
-                <a class="float-start bottom-nav-link nav-link" href="{{ url('/') }}">Home</a>
-                <a class="float-start bottom-nav-link nav-link" href="{{ route('admin.users.index') }}">Users</a>
-
+                <a class="float-start bottom-nav-link nav-link" href="{{ url('/') }}">Assets</a>
+                @can('is-admin')
+                    <a class="float-start bottom-nav-link nav-link" href="{{ route('admin.users.index') }}">Users</a>
+                @endcan
             </nav>
         @endcan
         <main>
