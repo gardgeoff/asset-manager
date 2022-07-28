@@ -88,7 +88,14 @@ class AssetControler extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $asset = Asset::find($id);
+        if (!$asset) {
+            $request->session()->flash("error", "User Does Not Exist");
+            return redirect(route("admin.users.index"));
+        }
+        $asset->update($request->except(["_token"]));
+        $request->session()->flash("success", "Asset Edited");
+        return redirect(route("admin.assets.index"));
     }
 
     /**
@@ -97,8 +104,10 @@ class AssetControler extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        dd("delete");
+        Asset::destroy($id);
+        $request->session()->flash("success", "Asset Deleted");
+        return redirect(route("admin.assets.index"));
     }
 }

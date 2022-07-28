@@ -31,9 +31,9 @@
 
     <body>
 
-        <nav class="px-5 navbar navbar-expand-sm bg-dark navbar-dark ">
+        <nav class="px-5 navbar navbar-expand-sm theme-bg-secondary ">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">Asset Manager</a>
+                <a class="text-light navbar-brand" href="{{ url('/') }}">Asset Manager</a>
                 @can('logged-in')
                     <form class="ml-auto" method="POST" action="/logout">
                         @csrf
@@ -53,8 +53,10 @@
 
             <nav class="px-5 shadow-sm  navbar navbar-expand-sm bg-light navbar-light">
                 <div class="container justify-content-start">
-                    <a class="float-start bottom-nav-link nav-link" href="{{ route('admin.assets.index') }}">Assets</a>
+                    <a class="float-start bottom-nav-link nav-link" href="/">My Assets</a>
                     @can('is-admin')
+                        <a class="float-start bottom-nav-link nav-link" href="{{ route('admin.assets.index') }}">All Assets</a>
+
                         <a class="float-start bottom-nav-link nav-link" href="{{ route('admin.users.index') }}">Users</a>
                     @endcan
                 </div>
@@ -62,6 +64,7 @@
         @endcan
         <main class="page-bg">
             <div class="container">
+                @include('partials.alerts')
                 {{ $slot }}
             </div>
         </main>
