@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Role>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Asset>
  */
-class RoleFactory extends Factory
+class AssetFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,8 @@ class RoleFactory extends Factory
     public function definition()
     {
         return [
-            "name" => $this->faker->jobTitle()
+            "name" => "asset_1",
+            "category" => "asset_category_1",
         ];
     }
 }

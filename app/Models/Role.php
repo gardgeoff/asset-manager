@@ -9,9 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Role extends Model
 {
     use HasFactory;
-    public function users() 
+    public function user()
     {
         return $this->belongsToMany("App\Models\User");
-
     }
 }

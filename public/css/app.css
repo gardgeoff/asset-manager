@@ -1,0 +1,47 @@
+.theme-bg-primary {
+  background: #AB0520 !important;
+  color: white !important;
+}
+.theme-bg-secondary {
+  background: #0C234B !important;
+  color: white !important;
+}
+.theme-color-primary{
+  color : #AB0520;
+}
+.theme-color-secondary{
+  color: #0C234B;
+}
+
+.card{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.178) 
+}
+
+/* pagination */
+.page-link{
+  color: #0C234B !important;
+}
+.active>.page-link{
+  color:white !important;
+  background: #0C234B !important
+}
+.bottom-nav-link{
+  font-weight: 600 !important;
+  margin-right: 25px;
+}
+.ml-auto{
+  margin-left:auto !important
+}
+.btn-no-style{
+  background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  
+}
+.page-bg{
+  background: #eee
+}
