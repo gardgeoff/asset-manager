@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container">
+   
         <div class="row">
             <div class=" my-5 col-12">
                 <h1 class="float-start">Users</h1>
@@ -43,5 +43,5 @@
             </table>
             {{ $users->links() }}
         </div>
-    </div>
+
 </x-layout>

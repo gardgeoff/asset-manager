@@ -32,32 +32,38 @@
     <body>
 
         <nav class="px-5 navbar navbar-expand-sm bg-dark navbar-dark ">
-            <a class="navbar-brand" href="{{ url('/') }}">Asset Manager</a>
-            @can('logged-in')
-                <form class="ml-auto" method="POST" action="/logout">
-                    @csrf
-                    <button class="btn btn-sm theme-bg-primary">Log Out</button>
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">Asset Manager</a>
+                @can('logged-in')
+                    <form class="ml-auto" method="POST" action="/logout">
+                        @csrf
+                        <button class="btn btn-sm theme-bg-primary">Log Out</button>
 
-                </form>
-            @endcan
-            @cannot('logged-in')
-                <div class="ml-auto">
-                    <a href={{ url('/login') }} class="nav-link text-light">Log In</a>
+                    </form>
+                @endcan
+                @cannot('logged-in')
+                    <div class="ml-auto">
+                        <a href={{ url('/login') }} class="nav-link text-light">Log In</a>
 
-                </div>
-            @endcannot
+                    </div>
+                @endcannot
+            </div>
         </nav>
         @can('logged-in')
-            <nav class="px-5 shadow-sm  navbar navbar-expand-sm bg-light navbar-light">
 
-                <a class="float-start bottom-nav-link nav-link" href="{{ url('/') }}">Assets</a>
-                @can('is-admin')
-                    <a class="float-start bottom-nav-link nav-link" href="{{ route('admin.users.index') }}">Users</a>
-                @endcan
+            <nav class="px-5 shadow-sm  navbar navbar-expand-sm bg-light navbar-light">
+                <div class="container justify-content-start">
+                    <a class="float-start bottom-nav-link nav-link" href="{{ route('admin.assets.index') }}">Assets</a>
+                    @can('is-admin')
+                        <a class="float-start bottom-nav-link nav-link" href="{{ route('admin.users.index') }}">Users</a>
+                    @endcan
+                </div>
             </nav>
         @endcan
-        <main>
-            {{ $slot }}
+        <main class="page-bg">
+            <div class="container">
+                {{ $slot }}
+            </div>
         </main>
     </body>
 </body>

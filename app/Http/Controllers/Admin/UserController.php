@@ -18,16 +18,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (Gate::denies("logged-in")) {
-            dd("no access");
-        }
-        if (Gate::allows("is-admin")) {
-            $users = User::paginate(10);
-            return view("admin.users.index", [
-                "users" => $users
-            ]);
-        }
-        return redirect("/");
+
+
+        $users = User::paginate(10);
+        return view("admin.users.index", [
+            "users" => $users
+        ]);
     }
 
 

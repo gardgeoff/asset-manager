@@ -23,7 +23,13 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    public function scopeFilter($query, array $filters)
+    {
 
+        if ($filters["search"] ?? false) {
+            $query->where("name", "like", "%" . request("search") . "%");
+        }
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
