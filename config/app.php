@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -14,9 +13,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
     'name' => env('APP_NAME', 'Laravel'),
-
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -182,6 +179,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -196,7 +194,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Class Aliases
@@ -207,9 +204,7 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
-
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
-
 ];

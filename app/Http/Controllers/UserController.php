@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\AssetNotification;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
@@ -35,6 +37,7 @@ class UserController extends Controller
         $formFields = $request->validated();
 
         User::create($formFields);
+   
         return redirect("/login")->with("success", "Created User");
     }
     public function logout(Request $request)

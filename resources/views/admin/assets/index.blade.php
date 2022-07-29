@@ -15,9 +15,9 @@
 
 
                 <tr>
-                    <th scope="col">Asset ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Category</th>
+                    <th class="sortable" scope="col">@sortablelink('id')</th>
+                    <th class="sortable" scope="col">@sortablelink('name')</th>
+                    <th class="sortable" scope="col">@sortablelink('category')</th>
                     <th scope="col">Assigned To</th>
                     <th scope="col">Actions</th>
                 </tr>

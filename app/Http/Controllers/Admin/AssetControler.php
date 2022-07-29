@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreAssetRequest;
+use App\Models\User;
 use App\Models\Asset;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Mail\AssetNotification;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\StoreAssetRequest;
 
 class AssetControler extends Controller
 {
@@ -18,7 +20,7 @@ class AssetControler extends Controller
     public function index()
     {
         // dd(request(["search"]));
-        $assets = Asset::with("user")->filter(request(["search"]))->paginate(20);
+        $assets = Asset::sortable()->with("user")->filter(request(["search"]))->paginate(20);
         return view("admin.assets.index", [
             "assets" => $assets
         ]);
@@ -43,10 +45,28 @@ class AssetControler extends Controller
      */
     public function store(StoreAssetRequest $request)
     {
+        $user = "";
+        if ($request->user_id) {
+            $user = User::find($request->user_id)->name;
+        }
 
         $formfields = $request->validated();
 
         Asset::create($formfields);
+        $admins = User::select("email")->with("roles")->wherehas("roles", function ($q) {
+            $q->where("name", "Admin");
+        })->get();
+
+
+        foreach ($admins as $admin) {
+            Mail::to([$admin->email])->send(new AssetNotification([
+                "title" => "A new asset has been added",
+                "name" => $formfields["name"],
+                "category" => $formfields["category"],
+                "user" => $user,
+
+            ]));
+        }
         return redirect(route("admin.assets.index"));
     }
 
@@ -88,12 +108,31 @@ class AssetControler extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = "";
+        if ($request->user_id) {
+            $user = User::find($request->user_id)->name;
+        }
         $asset = Asset::find($id);
         if (!$asset) {
             $request->session()->flash("error", "User Does Not Exist");
             return redirect(route("admin.users.index"));
         }
         $asset->update($request->except(["_token"]));
+        $admins = User::select("email")->with("roles")->wherehas("roles", function ($q) {
+            $q->where("name", "Admin");
+        })->get();
+
+
+        foreach ($admins as $admin) {
+            Mail::to([$admin->email])->send(new AssetNotification([
+                "title" => "An asset has been edited",
+                "id" => $asset->id,
+                "name" => $request->name,
+                "category" => $request->category,
+                "user" => $user,
+
+            ]));
+        }
         $request->session()->flash("success", "Asset Edited");
         return redirect(route("admin.assets.index"));
     }
@@ -107,6 +146,17 @@ class AssetControler extends Controller
     public function destroy($id, Request $request)
     {
         Asset::destroy($id);
+        $admins = User::select("email")->with("roles")->wherehas("roles", function ($q) {
+            $q->where("name", "Admin");
+        })->get();
+        foreach ($admins as $admin) {
+            Mail::to([$admin->email])->send(new AssetNotification([
+                "title" => "An asset has been deleted",
+                "name" => $request->name,
+                "category" => $request->category,
+                "id" => $id
+            ]));
+        }
         $request->session()->flash("success", "Asset Deleted");
         return redirect(route("admin.assets.index"));
     }

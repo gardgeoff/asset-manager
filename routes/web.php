@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\AssetControler as AdminAssetController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\UserController;
+use App\Mail\AssetNotification;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 // user routes
 
 // show login
-Route::get("/login", [UserController::class, "login"])->name("login");
+Route::get("/login", [UserController::class, "login"])->name("login")->middleware("guest");
 // authorize login
 Route::post("/users/authenticate", [UserController::class, "authenticate"]);
 // logout
@@ -31,7 +33,7 @@ Route::get("/register", [UserController::class, "create"]);
 // register user
 Route::post("/users", [UserController::class, "store"]);
 
-Route::get("/", [AssetController::class, "index"]);
+Route::get("/", [AssetController::class, "index"])->middleware("auth");
 
 
 // admin routes
@@ -39,3 +41,5 @@ Route::name("admin.")->prefix("admin")->middleware(["auth", "auth.isAdmin"])->gr
     Route::resource("/users", AdminUserController::class);
     Route::resource("/assets", AdminAssetController::class);
 });
+
+// mailing

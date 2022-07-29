@@ -30,4 +30,18 @@ class LoginPageTest extends TestCase
         $this->get("/admin/users");
         $response->assertRedirect("/");
     }
+
+    public function test_admin_can_access_admin_page()
+    {
+
+        $user = User::factory()->create();
+        session()->setPreviousUrl("/login");
+        $response = $this->post("/login", [
+            "email" => $user->email,
+            "password" => "password",
+        ]);
+        $response->assertSeeText("users");
+    
+    }
+
 }
