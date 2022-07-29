@@ -49,7 +49,6 @@ class AssetControler extends Controller
         if ($request->user_id) {
             $user = User::find($request->user_id)->name;
         }
-
         $formfields = $request->validated();
 
         Asset::create($formfields);

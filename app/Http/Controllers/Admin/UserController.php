@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Asset;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
@@ -20,7 +21,7 @@ class UserController extends Controller
     {
 
 
-        $users = User::paginate(10);
+        $users = User::filter(request(["search"]))->paginate(10);
         return view("admin.users.index", [
             "users" => $users
         ]);
@@ -59,7 +60,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+   
+        $assets = Asset::where("user_id", $id)->paginate(10);
+        return view("admin.users.show", ["user" => $user, "assets" => $assets]);
+
+       
     }
 
     /**

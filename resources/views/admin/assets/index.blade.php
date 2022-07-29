@@ -12,8 +12,6 @@
 
         <table class=" table table-striped table-hover">
             <thead>
-
-
                 <tr>
                     <th class="sortable" scope="col">@sortablelink('id')</th>
                     <th class="sortable" scope="col">@sortablelink('name')</th>
@@ -29,7 +27,13 @@
                         <td>{{ $asset->name }}</td>
                         <td>{{ $asset->category }}</td>
 
-                        <td>{{ !$asset->user_id ? 'no user' : $asset->user->name }}</td>
+                        <td>
+                            @if ($asset->user_id)
+                                <a class=" theme-color-secondary" href="/admin/users/{{$asset->user->id}}/">{{ $asset->user->name }}</a>
+                            @else
+                            no user
+                            @endif
+                        </td>
                         <td><a href="{{ route('admin.assets.edit', ['asset' => $asset->id]) }}"><i
                                     class="mx-3 fa-solid fa-pencil"></i></a>
                             <form class="d-inline" method="POST"

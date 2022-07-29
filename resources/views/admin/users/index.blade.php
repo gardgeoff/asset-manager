@@ -6,9 +6,9 @@
             </a>
         </div>
     </div>
-
+    @include("partials.search")
     <div class="table-card card">
-
+      
         <table class=" table table-striped table-hover">
             <thead>
                 <tr>
@@ -22,7 +22,7 @@
                 @foreach ($users as $user)
                     <tr>
                         <th scope="row">{{ $user->id }}</th>
-                        <td>{{ $user->name }}</td>
+                        <td><a href="{{route("admin.users.show", ["user"=> $user->id])}}" class="theme-color-secondary">{{ $user->name }}</a></td>
                         <td>{{ $user->email }}</td>
                         <td>
                             <a class="btn btn-sm theme-bg-secondary" href={{ route('admin.users.edit', $user->id) }}
