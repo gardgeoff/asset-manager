@@ -2,12 +2,12 @@
 
 
     <div class="py-5 d-flex justify-content-center align-items-center w-100 ">
-        <div class=" p-5 card w-25">
+        <div class=" p-5 card w-50">
             <form method="POST" action="/users/authenticate">
                 @csrf
                 <div class="mb-5 d-flex justify-content-center">
                     <!-- Email input -->
-                    <img style="width:35%" src="{{ asset('images/logo.png') }}" />
+                    <img style="width:25%" src="{{ asset('images/logo.png') }}" />
                 </div>
                 <p class="my-4 text-dark h3">Sign In</p>
                 <div class="form-outline mb-4">

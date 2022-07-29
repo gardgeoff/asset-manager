@@ -15,13 +15,11 @@
     <input value="{{ old('category') }} @isset($asset) {{ $asset->category }} @endisset"
         type="text" name="category" class="form-control" />
     <label class="text-dark form-label" for="email">Asset Category</label>
-
 </div>
-
 <div class="form-outline mb-4">
     <label for="user_id" class="text-dark form-label">Assign to user</label>
     <select name="user_id" class="form-select" aria-label="Default select example">
-        <option disabled {{ !$asset->user_id ? 'selected' : '' }}>Open this select menu</option>
+        <option disabled selected>Open this select menu</option>
         @foreach ($users as $user)
             <option @isset($asset) {{ $asset->user_id === $user->id ? 'selected' : '' }} @endisset
                 value="{{ $user->id }}">

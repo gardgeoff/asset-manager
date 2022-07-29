@@ -16,6 +16,9 @@
 .card{
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.178) 
 }
+.table-card{
+  min-height:80vh !important;
+}
 
 /* pagination */
 .page-link{
@@ -43,5 +46,20 @@
   
 }
 .page-bg{
-  background: #eee
+  background: url(/images/wave.svg);
+  background-position: right center;
+  background-size:cover;
+  min-height:100vh;
+  padding-bottom: 5em ;
+}
+.sortable > a {
+  color:black;
+  text-decoration: none;
+}
+.sortable > a:hover{
+  color: #0C234B !important;
+}
+h1{
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color:#0C234B;
 }
